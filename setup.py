@@ -7,9 +7,9 @@ setup(
     packages=find_packages(),
     package_data={
         "bundle": [
-            "transform/dagster.yaml",
-            "transform/meltano.py",
-            "transform/workspace.yaml",
+            "orchestrate/dagster.yaml",
+            "orchestrate/meltano.py",
+            "orchestrate/workspace.yaml",
         ]
     },
 )
