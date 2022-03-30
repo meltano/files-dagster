@@ -1,0 +1,40 @@
+run_storage:
+  module: dagster_postgres.run_storage
+  class: PostgresRunStorage
+  config:
+    postgres_db: &dagsterdb
+      username:
+        env: DAGSTERDB_USER
+      password:
+        env: DAGSTERDB_PASSWORD
+      hostname:
+        env: DAGSTERDB_HOST
+      db_name:
+        env: DAGSTERDB_DBNAME
+      port:
+        env: DAGSTERDB_PORT
+event_log_storage:
+  module: dagster_postgres.event_log
+  class: PostgresEventLogStorage
+  config:
+    postgres_db:
+      <<: *dagsterdb
+schedule_storage:
+  module: dagster_postgres.schedule_storage
+  class: PostgresScheduleStorage
+  config:
+    postgres_db:
+      <<: *dagsterdb
+compute_logs:
+  module: dagster.core.storage.local_compute_log_manager
+  class: LocalComputeLogManager
+  config:
+    base_dir: ".logs"
+scheduler:
+  module: dagster.core.scheduler
+  class: DagsterDaemonScheduler
+run_launcher:
+  module: dagster.core.launcher
+  class: DefaultRunLauncher
+telemetry:
+  enabled: false
